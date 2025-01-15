@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const resourceSchema = new mongoose.Schema({
+const ResourceSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -9,11 +9,6 @@ const resourceSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
-}, { timestamps: true });
+});
 
-module.exports = mongoose.model('Resource', resourceSchema);
+module.exports = mongoose.model('Resource', ResourceSchema);

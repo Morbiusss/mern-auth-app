@@ -11,14 +11,13 @@ exports.registerUser = async (req, res) => {
         return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
         return res.status(400).json({ message: 'User already exists' });
     }
 
     try {
-        // Hash the password
+        // // Hash the password
         // const salt = await bcrypt.genSalt(10);
         // const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -34,6 +33,7 @@ exports.registerUser = async (req, res) => {
 
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
+        console.error('Error during user registration:', error);
         res.status(500).json({ message: 'Server error' });
     }
 };
