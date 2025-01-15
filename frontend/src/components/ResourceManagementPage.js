@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { getResources, createResource, updateResource, deleteResource } from '../services/resourceService';
+import { Container, TextField, Button, Typography, Box, List, ListItem, ListItemText, IconButton } from '@mui/material';
+import { Edit, Delete } from '@mui/icons-material';
 
 const ResourceManagementPage = () => {
     const { user } = useContext(AuthContext);
@@ -43,35 +45,48 @@ const ResourceManagementPage = () => {
     };
 
     return (
-        <div>
-            <h1>Resource Management</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Title"
+        <Container maxWidth="md" sx={{ mt: 4 }}>
+            <Typography variant="h4" gutterBottom>
+                Resource Management
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mb: 4 }}>
+                <TextField
+                    label="Title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
+                    fullWidth
+                    margin="normal"
                     required
                 />
-                <textarea
-                    placeholder="Description"
+                <TextField
+                    label="Description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    fullWidth
+                    margin="normal"
                     required
                 />
-                <button type="submit">{editingResourceId ? 'Update' : 'Create'} Resource</button>
-            </form>
-            <ul>
-                {resources.map(resource => (
-                    <li key={resource._id}>
-                        <h3>{resource.title}</h3>
-                        <p>{resource.description}</p>
-                        <button onClick={() => handleEdit(resource)}>Edit</button>
-                        <button onClick={() => handleDelete(resource._id)}>Delete</button>
-                    </li>
+                <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+                    {editingResourceId ? 'Update Resource' : 'Create Resource'}
+                </Button>
+            </Box>
+            <List>
+                {resources.map((resource) => (
+                    <ListItem key={resource._id} sx={{ borderBottom: '1px solid #ddd' }}>
+                        <ListItemText
+                            primary={resource.title}
+                            secondary={resource.description}
+                        />
+                        <IconButton edge="end" aria-label="edit" onClick={() => handleEdit(resource)}>
+                            <Edit />
+                        </IconButton>
+                        <IconButton edge="end" aria-label="delete" onClick={() => handleDelete(resource._id)}>
+                            <Delete />
+                        </IconButton>
+                    </ListItem>
                 ))}
-            </ul>
-        </div>
+            </List>
+        </Container>
     );
 };
 

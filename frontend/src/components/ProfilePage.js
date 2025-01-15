@@ -30,6 +30,10 @@ const ProfilePage = () => {
         navigate('/login'); // Redirect to the login page
     };
 
+    const handleNavigateToResources = () => {
+        navigate('/resources'); // Redirect to the resources page
+    };
+
     if (error) {
         return <div className="error-message">{error}</div>;
     }
@@ -46,6 +50,7 @@ const ProfilePage = () => {
                 <p><strong>Email:</strong> {profile.email}</p>
                 {/* Add more profile details as needed */}
                 <button onClick={handleLogout} className="register-button">Logout</button>
+                <button onClick={handleNavigateToResources} className="register-button">Go to Resources</button>
             </div>
         </div>
     );
